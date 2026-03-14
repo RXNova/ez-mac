@@ -12,6 +12,7 @@ final class DisplayModel: Identifiable {
     var isInternal: Bool
     var supportsBrightness: Bool = false
     var isMain: Bool
+    var isEnabled: Bool = true
     var ddcControls: [DDCControl] = []
 
     init(id: CGDirectDisplayID, name: String, isInternal: Bool, isMain: Bool) {
