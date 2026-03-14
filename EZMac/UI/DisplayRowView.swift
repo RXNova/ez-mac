@@ -38,8 +38,10 @@ struct DisplayRowView: View {
 
             if display.isInternal && display.supportsBrightness {
                 BrightnessSliderView(display: display)
+                    .padding(.top, 10)
             } else if !display.isInternal && !display.ddcControls.isEmpty {
                 DDCControlsView(display: display)
+                    .padding(.top, 10)
             }
         }
         .padding(10)
