@@ -107,11 +107,18 @@ final class DisplayManager {
         }
 
         let onlineIDs = Set(displayIDs[0..<Int(displayCount)])
-
-        // Safety: if pulling a cable leaves zero active displays, auto-restore all
-        // software-disconnected ones so the Mac isn't left with a completely black screen
         let activeCount = newDisplays.filter { $0.isEnabled }.count
-        if activeCount == 0 && !softwareDisconnected.isEmpty {
+        let hasInternalSoftDisconnected = softwareDisconnected.values.contains { $0.isInternal }
+
+        // Two restore triggers:
+        // 1. displayCount == 0: no physical displays online at all (cable pulled / HPD dropped)
+        // 2. hasInternalSoftDisconnected && activeCount == 0: internal is soft-disconnected and
+        //    the external monitor powered off (HPD maintained, still in online list but inactive).
+        //    Without this, a MacBook/Mac mini user would be left with a blank screen.
+        let shouldAutoRestore = !softwareDisconnected.isEmpty &&
+            (displayCount == 0 || (hasInternalSoftDisconnected && activeCount == 0))
+
+        if shouldAutoRestore {
             let restored = restoreAllDisplays()
             if restored {
                 DispatchQueue.main.asyncAfter(deadline: .now() + 0.8) { self.refresh() }
