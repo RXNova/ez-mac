@@ -21,7 +21,8 @@ final class MenuBarController {
             let config = NSImage.SymbolConfiguration(pointSize: 14, weight: .medium)
             let image = NSImage(systemSymbolName: "display.2", accessibilityDescription: "EZMac Display Controller")
             button.image = image?.withSymbolConfiguration(config)
-            button.action = #selector(togglePopover)
+            button.action = #selector(handleClick(_:))
+            button.sendAction(on: [.leftMouseUp, .rightMouseUp])
             button.target = self
         }
     }
@@ -31,13 +32,26 @@ final class MenuBarController {
         popover.behavior = .transient
         popover.animates = true
 
-        let contentView = MenuBarView()
+        let contentView = MenuBarView(closeAction: { [weak self] in self?.closePopover() })
             .environment(displayManager)
 
         let hostingController = NSHostingController(rootView: contentView)
         // Let SwiftUI determine the size — avoids layout recursion from conflicting contentSize
         hostingController.sizingOptions = .preferredContentSize
         popover.contentViewController = hostingController
+    }
+
+    @objc private func handleClick(_ sender: NSStatusBarButton) {
+        guard let event = NSApp.currentEvent else { return }
+        if event.type == .rightMouseUp {
+            let menu = NSMenu()
+            menu.addItem(NSMenuItem(title: "Quit EZMac", action: #selector(NSApplication.terminate(_:)), keyEquivalent: "q"))
+            statusItem.menu = menu
+            statusItem.button?.performClick(nil)
+            DispatchQueue.main.async { [weak self] in self?.statusItem.menu = nil }
+        } else {
+            togglePopover()
+        }
     }
 
     @objc private func togglePopover() {

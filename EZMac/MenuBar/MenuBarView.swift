@@ -1,6 +1,7 @@
 import SwiftUI
 
 struct MenuBarView: View {
+    let closeAction: () -> Void
     @Environment(DisplayManager.self) private var displayManager
     @State private var showNonHiDPI = false
 
@@ -25,14 +26,14 @@ struct MenuBarView: View {
                 .help("Refresh displays")
 
                 Button {
-                    NSApplication.shared.terminate(nil)
+                    closeAction()
                 } label: {
                     Image(systemName: "xmark.circle.fill")
                         .font(.system(size: 13))
                         .foregroundStyle(.secondary)
                 }
                 .buttonStyle(.plain)
-                .help("Quit EZMac")
+                .help("Close (right-click menu bar icon to Quit)")
             }
             .padding(.horizontal, 14)
             .padding(.vertical, 10)

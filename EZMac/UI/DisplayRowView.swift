@@ -41,15 +41,12 @@ struct DisplayRowView: View {
                 Spacer()
 
                 if !display.isInternal {
-                    Button {
-                        displayManager.setDisplayEnabled(!display.isEnabled, for: display)
-                    } label: {
-                        Image(systemName: display.isEnabled ? "minus.circle.fill" : "arrow.clockwise.circle.fill")
-                            .font(.system(size: 16))
-                            .foregroundStyle(display.isEnabled ? Color.gray.opacity(0.7) : Color.blue)
-                            .contentShape(Rectangle())
-                    }
-                    .buttonStyle(.plain)
+                    Toggle(isOn: Binding(
+                        get: { display.isEnabled },
+                        set: { displayManager.setDisplayEnabled($0, for: display) }
+                    )) { EmptyView() }
+                    .toggleStyle(.switch)
+                    .controlSize(.small)
                     .help(display.isEnabled ? "Disconnect display" : "Reconnect display")
                 }
             }

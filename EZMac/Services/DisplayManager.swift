@@ -16,8 +16,9 @@ final class DisplayManager {
 
     private var slsConfigureDisplayEnabled: SLSConfigureDisplayEnabledFn?
     private var coreDisplaySetUserEnabled: CoreDisplaySetUserEnabledFn?
-    // Tracks displays we software-disconnected so they still appear in the list
     private var softwareDisconnected: [CGDirectDisplayID: (name: String, isInternal: Bool)] = [:]
+
+    private static let udKey = "EZMacSoftwareDisconnected"
 
     init() {
         // Prefer SkyLight (macOS 26+)
@@ -31,12 +32,30 @@ final class DisplayManager {
            let sym = dlsym(handle, "CoreDisplay_Display_SetUserEnabled") {
             coreDisplaySetUserEnabled = unsafeBitCast(sym, to: CoreDisplaySetUserEnabledFn.self)
         }
+        loadPersistedDisconnected()
         refresh()
         CGDisplayRegisterReconfigurationCallback(reconfigCallback, Unmanaged.passUnretained(self).toOpaque())
     }
 
     deinit {
         CGDisplayRemoveReconfigurationCallback(reconfigCallback, Unmanaged.passUnretained(self).toOpaque())
+    }
+
+    private func persistDisconnected() {
+        let data = softwareDisconnected.map { id, info -> [String: Any] in
+            ["id": Int(id), "name": info.name, "isInternal": info.isInternal]
+        }
+        UserDefaults.standard.set(data, forKey: Self.udKey)
+    }
+
+    private func loadPersistedDisconnected() {
+        guard let data = UserDefaults.standard.array(forKey: Self.udKey) as? [[String: Any]] else { return }
+        for entry in data {
+            guard let rawID = entry["id"] as? Int,
+                  let name = entry["name"] as? String,
+                  let isInternal = entry["isInternal"] as? Bool else { continue }
+            softwareDisconnected[CGDirectDisplayID(rawID)] = (name: name, isInternal: isInternal)
+        }
     }
 
     func refresh() {
@@ -89,8 +108,10 @@ final class DisplayManager {
 
         let onlineIDs = Set(displayIDs[0..<Int(displayCount)])
         // If a software-disconnected display reappears (physical reconnect), stop tracking it
-        for id in softwareDisconnected.keys where onlineIDs.contains(id) && CGDisplayIsActive(id) != 0 {
-            softwareDisconnected.removeValue(forKey: id)
+        let recovered = softwareDisconnected.keys.filter { onlineIDs.contains($0) && CGDisplayIsActive($0) != 0 }
+        if !recovered.isEmpty {
+            recovered.forEach { softwareDisconnected.removeValue(forKey: $0) }
+            persistDisconnected()
         }
 
         displays = newDisplays.sorted {
@@ -164,10 +185,27 @@ final class DisplayManager {
         } else {
             softwareDisconnected.removeValue(forKey: display.id)
         }
+        persistDisconnected()
         display.isEnabled = enabled
         DispatchQueue.main.asyncAfter(deadline: .now() + 0.8) {
             self.refresh()
         }
+    }
+
+    func restoreAllDisplays() {
+        guard !softwareDisconnected.isEmpty else { return }
+        let ids = Array(softwareDisconnected.keys)
+
+        if let enableFn = slsConfigureDisplayEnabled {
+            var config: CGDisplayConfigRef?
+            guard CGBeginDisplayConfiguration(&config) == .success else { return }
+            for id in ids { _ = enableFn(config, id, true) }
+            CGCompleteDisplayConfiguration(config, .forAppOnly)
+        } else if let fn = coreDisplaySetUserEnabled {
+            for id in ids { _ = fn(id, true) }
+        }
+        softwareDisconnected.removeAll()
+        persistDisconnected()
     }
 }
 

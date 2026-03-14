@@ -11,4 +11,8 @@ final class AppDelegate: NSObject, NSApplicationDelegate {
         self.displayManager = manager
         self.menuBarController = MenuBarController(displayManager: manager)
     }
+
+    func applicationWillTerminate(_ notification: Notification) {
+        displayManager?.restoreAllDisplays()
+    }
 }
