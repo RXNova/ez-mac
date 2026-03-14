@@ -107,6 +107,21 @@ final class DisplayManager {
         }
 
         let onlineIDs = Set(displayIDs[0..<Int(displayCount)])
+
+        // Safety: if pulling a cable leaves zero active displays, auto-restore all
+        // software-disconnected ones so the Mac isn't left with a completely black screen
+        let activeCount = newDisplays.filter { $0.isEnabled }.count
+        if activeCount == 0 && !softwareDisconnected.isEmpty {
+            let restored = restoreAllDisplays()
+            if restored {
+                DispatchQueue.main.asyncAfter(deadline: .now() + 0.8) { self.refresh() }
+            } else {
+                // Restore failed — quit so .forAppOnly releases and WindowServer brings displays back
+                NSApplication.shared.terminate(nil)
+            }
+            return
+        }
+
         // If a software-disconnected display reappears (physical reconnect), stop tracking it
         let recovered = softwareDisconnected.keys.filter { onlineIDs.contains($0) && CGDisplayIsActive($0) != 0 }
         if !recovered.isEmpty {
@@ -196,20 +211,26 @@ final class DisplayManager {
         }
     }
 
-    func restoreAllDisplays() {
-        guard !softwareDisconnected.isEmpty else { return }
+    @discardableResult
+    func restoreAllDisplays() -> Bool {
+        guard !softwareDisconnected.isEmpty else { return true }
         let ids = Array(softwareDisconnected.keys)
+        var succeeded = false
 
         if let enableFn = slsConfigureDisplayEnabled {
             var config: CGDisplayConfigRef?
-            guard CGBeginDisplayConfiguration(&config) == .success else { return }
+            guard CGBeginDisplayConfiguration(&config) == .success else { return false }
             for id in ids { _ = enableFn(config, id, true) }
-            CGCompleteDisplayConfiguration(config, .forAppOnly)
+            succeeded = CGCompleteDisplayConfiguration(config, .forAppOnly) == .success
         } else if let fn = coreDisplaySetUserEnabled {
-            for id in ids { _ = fn(id, true) }
+            succeeded = ids.allSatisfy { fn($0, true) == 0 }
         }
-        softwareDisconnected.removeAll()
-        persistDisconnected()
+
+        if succeeded {
+            softwareDisconnected.removeAll()
+            persistDisconnected()
+        }
+        return succeeded
     }
 }
 
