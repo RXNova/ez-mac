@@ -20,7 +20,7 @@ final class DDCBrightnessDriver {
     private var avServiceWrite:  IOAVServiceWriteI2CFn?
 
     private var avServiceCache: [CGDirectDisplayID: UnsafeMutableRawPointer] = [:]
-    private var ddcMaxCache:    [CGDirectDisplayID: UInt16] = [:]
+    private var ddcMaxCache:    [CGDirectDisplayID: [UInt8: UInt16]] = [:]
 
     private init() {
         guard let h = dlopen("/System/Library/Frameworks/CoreDisplay.framework/CoreDisplay", RTLD_LAZY) else { return }
@@ -34,7 +34,7 @@ final class DDCBrightnessDriver {
     func getBrightness(for displayID: CGDirectDisplayID, completion: @escaping (Float?) -> Void) {
         queue.async {
             let result = self.ddcGet(displayID: displayID, vcpCode: kDDCVCPBrightness)
-            if let result { self.ddcMaxCache[displayID] = result.max }
+            if let result { self.cacheMax(result.max, for: displayID, vcpCode: kDDCVCPBrightness) }
             DispatchQueue.main.async {
                 completion(result.map { Float($0.current) / Float($0.max) })
             }
@@ -42,30 +42,45 @@ final class DDCBrightnessDriver {
     }
 
     func setBrightness(_ value: Float, for displayID: CGDirectDisplayID) {
+        setVCP(kDDCVCPBrightness, value: value, for: displayID)
+    }
+
+    // Probe a list of VCP codes; returns only those the display responds to.
+    func probeVCPs(_ codes: [UInt8], for displayID: CGDirectDisplayID,
+                   completion: @escaping ([(code: UInt8, current: UInt16, max: UInt16)]) -> Void) {
+        queue.async {
+            var results: [(code: UInt8, current: UInt16, max: UInt16)] = []
+            for code in codes {
+                if let r = self.ddcGet(displayID: displayID, vcpCode: code), r.max > 0, r.max <= 1000 {
+                    self.cacheMax(r.max, for: displayID, vcpCode: code)
+                    results.append((code: code, current: r.current, max: r.max))
+                }
+            }
+            DispatchQueue.main.async { completion(results) }
+        }
+    }
+
+    func setVCP(_ vcpCode: UInt8, value: Float, for displayID: CGDirectDisplayID) {
         queue.async {
             let maxVal: UInt16
-            if let cached = self.ddcMaxCache[displayID] {
+            if let cached = self.ddcMaxCache[displayID]?[vcpCode] {
                 maxVal = cached
-            } else if let current = self.ddcGet(displayID: displayID, vcpCode: kDDCVCPBrightness) {
-                self.ddcMaxCache[displayID] = current.max
-                maxVal = current.max
+            } else if let r = self.ddcGet(displayID: displayID, vcpCode: vcpCode) {
+                self.cacheMax(r.max, for: displayID, vcpCode: vcpCode)
+                maxVal = r.max
             } else {
                 return
             }
             let newVal = UInt16(max(0, min(Float(maxVal), value * Float(maxVal))))
-            self.ddcSet(displayID: displayID, vcpCode: kDDCVCPBrightness, value: newVal)
+            self.ddcSet(displayID: displayID, vcpCode: vcpCode, value: newVal)
         }
     }
 
-    func supportsDDC(for displayID: CGDirectDisplayID) -> Bool {
-        avServiceCreate != nil ? findAVService(for: displayID) != nil : findFramebuffer(for: displayID) != nil
-    }
+    // MARK: - Cache helpers
 
-    func invalidateCache(for displayID: CGDirectDisplayID) {
-        queue.async {
-            self.avServiceCache.removeValue(forKey: displayID)
-            self.ddcMaxCache.removeValue(forKey: displayID)
-        }
+    private func cacheMax(_ max: UInt16, for displayID: CGDirectDisplayID, vcpCode: UInt8) {
+        if ddcMaxCache[displayID] == nil { ddcMaxCache[displayID] = [:] }
+        ddcMaxCache[displayID]![vcpCode] = max
     }
 
     // MARK: - DDC packets

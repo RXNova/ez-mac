@@ -36,8 +36,10 @@ struct DisplayRowView: View {
 
             ResolutionPickerView(display: display, showNonHiDPI: $showNonHiDPI)
 
-            if display.supportsBrightness {
+            if display.isInternal && display.supportsBrightness {
                 BrightnessSliderView(display: display)
+            } else if !display.isInternal && !display.ddcControls.isEmpty {
+                DDCControlsView(display: display)
             }
         }
         .padding(10)

@@ -1,4 +1,3 @@
-import IOKit
 import CoreGraphics
 import Foundation
 

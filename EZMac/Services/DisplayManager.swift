@@ -49,6 +49,11 @@ final class DisplayManager {
                     if let value { model.brightness = value }
                 }
             }
+            if !model.isInternal {
+                DDCBrightnessDriver.shared.probeVCPs(DDCControl.probeCodes, for: displayID) { results in
+                    model.ddcControls = results.map { DDCControl(code: $0.code, current: $0.current, max: $0.max) }
+                }
+            }
             newDisplays.append(model)
         }
 
@@ -71,6 +76,10 @@ final class DisplayManager {
     func setBrightness(_ value: Float, for display: DisplayModel) {
         display.brightness = value
         BrightnessService.shared.setBrightness(value, for: display)
+    }
+
+    func setDDCControl(_ value: Float, code: UInt8, for display: DisplayModel) {
+        DDCBrightnessDriver.shared.setVCP(code, value: value, for: display.id)
     }
 }
 
