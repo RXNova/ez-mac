@@ -40,15 +40,13 @@ struct DisplayRowView: View {
 
                 Spacer()
 
-                if !display.isInternal {
-                    Toggle(isOn: Binding(
-                        get: { display.isEnabled },
-                        set: { displayManager.setDisplayEnabled($0, for: display) }
-                    )) { EmptyView() }
-                    .toggleStyle(.switch)
-                    .controlSize(.small)
-                    .help(display.isEnabled ? "Disconnect display" : "Reconnect display")
-                }
+                Toggle(isOn: Binding(
+                    get: { display.isEnabled },
+                    set: { displayManager.setDisplayEnabled($0, for: display) }
+                )) { EmptyView() }
+                .toggleStyle(.switch)
+                .controlSize(.small)
+                .help(display.isEnabled ? "Disconnect display" : "Reconnect display")
             }
 
             if display.isEnabled {

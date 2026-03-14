@@ -148,8 +148,12 @@ final class DisplayManager {
     }
 
     func setDisplayEnabled(_ enabled: Bool, for display: DisplayModel) {
-        guard !display.isInternal else { return }
         errorMessage = nil
+        // Prevent disconnecting the last active display
+        if !enabled && displays.filter({ $0.isEnabled }).count <= 1 {
+            errorMessage = "Cannot disconnect the only active display"
+            return
+        }
 
         if let enableFn = slsConfigureDisplayEnabled {
             // macOS 26+: SkyLight SLS API — requires CG display config transaction
