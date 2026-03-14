@@ -1,0 +1,8 @@
+    <clipPath id="icon"><rect width="1024" height="1024" rx="224" ry="224"/></clipPath>
+  </defs>
+  <g clip-path="url(#icon)">
+    <rect width="1024" height="1024" fill="url(#bg)"/>
+    <rect width="1024" height="1024" fill="url(#bloom)"/>
+    <rect x="160" y="226" width="704" height="480" rx="28" ry="28" fill="#ffffff" fill-opacity="0.16" stroke="#ffffff" stroke-opacity="0.90" stroke-width="28"/>
+    <rect x="188" y="254" width="648" height="392" rx="14" ry="14" fill="#050e26" fill-opacity="0.72"/>
+    <rect x="188" y="254" width="648" height="72" rx="14" ry="14" fill="#ffffff" fill-opacity="0.05"/>
