@@ -12,7 +12,7 @@ struct MenuBarView: View {
                 Image(systemName: "display.2")
                     .font(.system(size: 13, weight: .semibold))
                     .foregroundStyle(.blue)
-                Text("EZMac Display")
+                Text("EZDisplay")
                     .font(.system(size: 13, weight: .semibold))
                 Spacer()
                 Button {

@@ -19,7 +19,7 @@ final class MenuBarController {
 
         if let button = statusItem.button {
             let config = NSImage.SymbolConfiguration(pointSize: 14, weight: .medium)
-            let image = NSImage(systemSymbolName: "display.2", accessibilityDescription: "EZMac Display Controller")
+            let image = NSImage(systemSymbolName: "display.2", accessibilityDescription: "EzDisplay Display Controller")
             button.image = image?.withSymbolConfiguration(config)
             button.action = #selector(handleClick(_:))
             button.sendAction(on: [.leftMouseUp, .rightMouseUp])
@@ -45,7 +45,7 @@ final class MenuBarController {
         guard let event = NSApp.currentEvent else { return }
         if event.type == .rightMouseUp {
             let menu = NSMenu()
-            menu.addItem(NSMenuItem(title: "Quit EZMac", action: #selector(NSApplication.terminate(_:)), keyEquivalent: "q"))
+            menu.addItem(NSMenuItem(title: "Quit EzDisplay", action: #selector(NSApplication.terminate(_:)), keyEquivalent: "q"))
             statusItem.menu = menu
             statusItem.button?.performClick(nil)
             DispatchQueue.main.async { [weak self] in self?.statusItem.menu = nil }

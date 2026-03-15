@@ -13,7 +13,7 @@ private typealias IOAVServiceWriteI2CFn = @convention(c) (UnsafeMutableRawPointe
 
 final class DDCBrightnessDriver {
     static let shared = DDCBrightnessDriver()
-    private let queue = DispatchQueue(label: "com.ezmac.ddc", qos: .userInitiated)
+    private let queue = DispatchQueue(label: "com.EzDisplay.ddc", qos: .userInitiated)
 
     private var avServiceCreate: IOAVServiceCreateWithServiceFn?
     private var avServiceRead:   IOAVServiceReadI2CFn?

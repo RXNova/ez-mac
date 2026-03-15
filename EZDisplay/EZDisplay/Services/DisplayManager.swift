@@ -18,7 +18,7 @@ final class DisplayManager {
     private var coreDisplaySetUserEnabled: CoreDisplaySetUserEnabledFn?
     private var softwareDisconnected: [CGDirectDisplayID: (name: String, isInternal: Bool)] = [:]
 
-    private static let udKey = "EZMacSoftwareDisconnected"
+    private static let udKey = "EzDisplaySoftwareDisconnected"
 
     init() {
         // Prefer SkyLight (macOS 26+)

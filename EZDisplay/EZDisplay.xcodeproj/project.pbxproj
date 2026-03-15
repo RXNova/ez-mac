@@ -7,7 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		AA000050000000000000001 /* EZMacApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA000020000000000000001 /* EZMacApp.swift */; };
+		AA000050000000000000001 /* EZDisplayApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA000020000000000000001 /* EZDisplayApp.swift */; };
 		AA000051000000000000001 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA000021000000000000001 /* AppDelegate.swift */; };
 		AA000052000000000000001 /* MenuBarController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA000022000000000000001 /* MenuBarController.swift */; };
 		AA000053000000000000001 /* MenuBarView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA000023000000000000001 /* MenuBarView.swift */; };
@@ -27,7 +27,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
-		AA000020000000000000001 /* EZMacApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EZMacApp.swift; sourceTree = "<group>"; };
+		AA000020000000000000001 /* EZDisplayApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EZDisplayApp.swift; sourceTree = "<group>"; };
 		AA000021000000000000001 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		AA000022000000000000001 /* MenuBarController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MenuBarController.swift; sourceTree = "<group>"; };
 		AA000023000000000000001 /* MenuBarView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MenuBarView.swift; sourceTree = "<group>"; };
@@ -46,7 +46,7 @@
 		AA00002E000000000000001 /* IOKit-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "IOKit-Bridging-Header.h"; sourceTree = "<group>"; };
 		AA00002F000000000000001 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		AA000030000000000000001 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		AA000031000000000000001 /* EZMac.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = EZMac.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		AA000031000000000000001 /* EZDisplay.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = EZDisplay.app; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -60,7 +60,7 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
-		AA000002000000000000001 /* EZMac */ = {
+		AA000002000000000000001 /* EZDisplay */ = {
 			isa = PBXGroup;
 			children = (
 				AA000041000000000000001 /* App */,
@@ -72,13 +72,13 @@
 				AA000047000000000000001 /* Bridging */,
 				AA00002F000000000000001 /* Assets.xcassets */,
 			);
-			path = EZMac;
+			path = EZDisplay;
 			sourceTree = "<group>";
 		};
 		AA000003000000000000001 /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				AA000031000000000000001 /* EZMac.app */,
+				AA000031000000000000001 /* EZDisplay.app */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -86,7 +86,7 @@
 		AA000041000000000000001 /* App */ = {
 			isa = PBXGroup;
 			children = (
-				AA000020000000000000001 /* EZMacApp.swift */,
+				AA000020000000000000001 /* EZDisplayApp.swift */,
 				AA000021000000000000001 /* AppDelegate.swift */,
 				AA000030000000000000001 /* Info.plist */,
 			);
@@ -153,7 +153,7 @@
 		AABB0001000000000000001 /* MainGroup */ = {
 			isa = PBXGroup;
 			children = (
-				AA000002000000000000001 /* EZMac */,
+				AA000002000000000000001 /* EZDisplay */,
 				AA000003000000000000001 /* Products */,
 			);
 			sourceTree = "<group>";
@@ -161,9 +161,9 @@
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
-		AA000004000000000000001 /* EZMac */ = {
+		AA000004000000000000001 /* EZDisplay */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = AA000065000000000000001 /* Build configuration list for PBXNativeTarget "EZMac" */;
+			buildConfigurationList = AA000065000000000000001 /* Build configuration list for PBXNativeTarget "EZDisplay" */;
 			buildPhases = (
 				AA000010000000000000001 /* Sources */,
 				AA000011000000000000001 /* Frameworks */,
@@ -173,9 +173,9 @@
 			);
 			dependencies = (
 			);
-			name = EZMac;
-			productName = EZMac;
-			productReference = AA000031000000000000001 /* EZMac.app */;
+			name = EZDisplay;
+			productName = EZDisplay;
+			productReference = AA000031000000000000001 /* EZDisplay.app */;
 			productType = "com.apple.product-type.application";
 		};
 /* End PBXNativeTarget section */
@@ -193,7 +193,7 @@
 					};
 				};
 			};
-			buildConfigurationList = AA000064000000000000001 /* Build configuration list for PBXProject "EZMac" */;
+			buildConfigurationList = AA000064000000000000001 /* Build configuration list for PBXProject "EZDisplay" */;
 			compatibilityVersion = "Xcode 14.0";
 			developmentRegion = en;
 			hasScannedForEncodings = 0;
@@ -206,7 +206,7 @@
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
-				AA000004000000000000001 /* EZMac */,
+				AA000004000000000000001 /* EZDisplay */,
 			);
 		};
 /* End PBXProject section */
@@ -227,7 +227,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				AA000050000000000000001 /* EZMacApp.swift in Sources */,
+				AA000050000000000000001 /* EZDisplayApp.swift in Sources */,
 				AA000051000000000000001 /* AppDelegate.swift in Sources */,
 				AA000052000000000000001 /* MenuBarController.swift in Sources */,
 				AA000053000000000000001 /* MenuBarView.swift in Sources */,
@@ -376,17 +376,17 @@
 				DEVELOPMENT_TEAM = "";
 				ENABLE_HARDENED_RUNTIME = YES;
 				GENERATE_INFOPLIST_FILE = NO;
-				INFOPLIST_FILE = "EZMac/App/Info.plist";
+				INFOPLIST_FILE = "EZDisplay/App/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/../Frameworks",
 				);
 				MACOSX_DEPLOYMENT_TARGET = 14.0;
 				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = com.ezmac.displaycontroller;
+				PRODUCT_BUNDLE_IDENTIFIER = com.EZDisplay.displaycontroller;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_EMIT_LOC_STRINGS = YES;
-				SWIFT_OBJC_BRIDGING_HEADER = "EZMac/Bridging/IOKit-Bridging-Header.h";
+				SWIFT_OBJC_BRIDGING_HEADER = "EZDisplay/Bridging/IOKit-Bridging-Header.h";
 				SWIFT_VERSION = 5.0;
 				FRAMEWORK_SEARCH_PATHS = "$(inherited)";
 				OTHER_LDFLAGS = (
@@ -410,17 +410,17 @@
 				DEVELOPMENT_TEAM = "";
 				ENABLE_HARDENED_RUNTIME = YES;
 				GENERATE_INFOPLIST_FILE = NO;
-				INFOPLIST_FILE = "EZMac/App/Info.plist";
+				INFOPLIST_FILE = "EZDisplay/App/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/../Frameworks",
 				);
 				MACOSX_DEPLOYMENT_TARGET = 14.0;
 				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = com.ezmac.displaycontroller;
+				PRODUCT_BUNDLE_IDENTIFIER = com.EZDisplay.displaycontroller;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_EMIT_LOC_STRINGS = YES;
-				SWIFT_OBJC_BRIDGING_HEADER = "EZMac/Bridging/IOKit-Bridging-Header.h";
+				SWIFT_OBJC_BRIDGING_HEADER = "EZDisplay/Bridging/IOKit-Bridging-Header.h";
 				SWIFT_VERSION = 5.0;
 				OTHER_LDFLAGS = (
 					"-framework",
@@ -434,7 +434,7 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
-		AA000064000000000000001 /* Build configuration list for PBXProject "EZMac" */ = {
+		AA000064000000000000001 /* Build configuration list for PBXProject "EZDisplay" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				AA000060000000000000001 /* Debug */,
@@ -443,7 +443,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		AA000065000000000000001 /* Build configuration list for PBXNativeTarget "EZMac" */ = {
+		AA000065000000000000001 /* Build configuration list for PBXNativeTarget "EZDisplay" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				AA000062000000000000001 /* Debug */,

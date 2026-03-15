@@ -1,8 +1,14 @@
 # EZMac
 
-EZMac is a macOS application designed to simplify the management of external display settings, such as brightness (via DDC/CI) and resolution.
+EZMac is a suite of utility applications for macOS, designed to enhance your system management experience.
 
-## Features
+## Applications
+
+### EZDisplay
+
+EZDisplay is the first tool in the suite, focused on simplifying external display management. It is a part of the EZMac family.
+
+#### Features
 
 - **Brightness Control:** Adjust the brightness of external monitors directly from your Mac, utilizing DDC/CI commands.
 - **Resolution Switcher:** Quickly change display resolutions.
@@ -15,7 +21,7 @@ EZMac is a macOS application designed to simplify the management of external dis
 
 ## Getting Started
 
-To build and run the application locally:
+To build and run the applications locally (starting with EZDisplay):
 
 1. **Clone the repository:**
    ```bash
@@ -24,24 +30,24 @@ To build and run the application locally:
    ```
 
 2. **Open the project in Xcode:**
-   Double-click on `EZMac.xcodeproj` or run:
+   Double-click on `EZDisplay/EZDisplay.xcodeproj` or run:
    ```bash
-   xed .
+   xed EZDisplay
    ```
 
 3. **Build and Run:**
-   - Select the **EZMac** scheme in the top toolbar.
+   - Select the **EzDisplay** scheme in the top toolbar to build EZDisplay.
    - Choose your Mac as the destination (My Mac).
    - Press `Cmd + R` or click the **Run** button (Play icon).
 
-## Project Structure
+## Project Structure (EZDisplay)
 
-- `EZMac/App`: Application lifecycle and entry point (`EZMacApp.swift`).
-- `EZMac/Drivers`: Specific drivers for brightness control (DDC, Internal).
-- `EZMac/Services`: Core logic for managing displays and resolutions.
-- `EZMac/UI`: SwiftUI views for the user interface.
-- `EZMac/Models`: Data models for display configurations.
-- `EZMac/Bridging`: Objective-C bridging headers (IOKit).
+- `EZDisplay/EZDisplay/App`: Application lifecycle and entry point (`EZDisplayApp.swift`).
+- `EZDisplay/EZDisplay/Drivers`: Specific drivers for brightness control (DDC, Internal).
+- `EZDisplay/EZDisplay/Services`: Core logic for managing displays and resolutions.
+- `EZDisplay/EZDisplay/UI`: SwiftUI views for the user interface.
+- `EZDisplay/EZDisplay/Models`: Data models for display configurations.
+- `EZDisplay/EZDisplay/Bridging`: Objective-C bridging headers (IOKit).
 
 ## Permissions
 
