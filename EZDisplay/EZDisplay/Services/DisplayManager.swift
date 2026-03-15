@@ -184,6 +184,7 @@ final class DisplayManager {
            let idx = display.ddcControls.firstIndex(where: { $0.id == 0x10 }) {
             display.ddcControls[idx].value = value
         }
+        BrightnessOSDController.shared.show(brightness: value, displayID: display.id)
     }
 
     func setDDCControl(_ value: Float, code: UInt8, for display: DisplayModel) {

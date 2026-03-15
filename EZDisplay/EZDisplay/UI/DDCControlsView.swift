@@ -63,6 +63,9 @@ struct DDCControlsView: View {
                     if let idx = display.ddcControls.firstIndex(where: { $0.id == control.id }) {
                         display.ddcControls[idx].value = Float(newVal)
                     }
+                    if control.id == 0x10 {
+                        BrightnessOSDController.shared.show(brightness: Float(newVal), displayID: display.id)
+                    }
                     debounceTasks[control.id]?.cancel()
                     let task = DispatchWorkItem {
                         displayManager.setDDCControl(Float(newVal), code: control.id, for: display)

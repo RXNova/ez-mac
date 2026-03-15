@@ -24,6 +24,7 @@
 		AA00005D000000000000001 /* DDCBrightnessDriver.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA00002D000000000000001 /* DDCBrightnessDriver.swift */; };
 		AA00005E200000000000001 /* DDCControl.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA00002D200000000000001 /* DDCControl.swift */; };
 		AA00005E300000000000001 /* DDCControlsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA00002D300000000000001 /* DDCControlsView.swift */; };
+		AA00005F300000000000001 /* BrightnessOSDController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA00002F300000000000001 /* BrightnessOSDController.swift */; };
 		AA00005F000000000000001 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = AA00002F000000000000001 /* Assets.xcassets */; };
 /* End PBXBuildFile section */
 
@@ -45,6 +46,7 @@
 		AA00002D000000000000001 /* DDCBrightnessDriver.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DDCBrightnessDriver.swift; sourceTree = "<group>"; };
 		AA00002D200000000000001 /* DDCControl.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DDCControl.swift; sourceTree = "<group>"; };
 		AA00002D300000000000001 /* DDCControlsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DDCControlsView.swift; sourceTree = "<group>"; };
+		AA00002F300000000000001 /* BrightnessOSDController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BrightnessOSDController.swift; sourceTree = "<group>"; };
 		AA00002E200000000000001 /* IOKit-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "IOKit-Bridging-Header.h"; sourceTree = "<group>"; };
 		AA00002F000000000000001 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		AA000030000000000000001 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -111,6 +113,7 @@
 				AA000025000000000000001 /* ResolutionPickerView.swift */,
 				AA000026000000000000001 /* BrightnessSliderView.swift */,
 				AA00002D300000000000001 /* DDCControlsView.swift */,
+				AA00002F300000000000001 /* BrightnessOSDController.swift */,
 			);
 			path = UI;
 			sourceTree = "<group>";
@@ -247,6 +250,7 @@
 				AA00005D000000000000001 /* DDCBrightnessDriver.swift in Sources */,
 			        AA00005E200000000000001 /* DDCControl.swift in Sources */,
 				AA00005E300000000000001 /* DDCControlsView.swift in Sources */,
+				AA00005F300000000000001 /* BrightnessOSDController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
