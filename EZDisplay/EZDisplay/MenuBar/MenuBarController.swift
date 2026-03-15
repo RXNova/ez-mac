@@ -12,6 +12,23 @@ final class MenuBarController {
         self.displayManager = displayManager
         setupStatusItem()
         setupPopover()
+        NotificationCenter.default.addObserver(
+            forName: NSApplication.didChangeScreenParametersNotification,
+            object: nil,
+            queue: .main
+        ) { [weak self] _ in
+            self?.repositionPopoverIfNeeded()
+        }
+    }
+
+    private func repositionPopoverIfNeeded() {
+        guard popover.isShown, let button = statusItem.button else { return }
+        popover.performClose(nil)
+        DispatchQueue.main.asyncAfter(deadline: .now() + 0.15) { [weak self] in
+            guard let self else { return }
+            self.popover.show(relativeTo: button.bounds, of: button, preferredEdge: .minY)
+            self.popover.contentViewController?.view.window?.makeKey()
+        }
     }
 
     private func setupStatusItem() {
