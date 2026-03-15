@@ -36,7 +36,7 @@ To build and run the applications locally (starting with EZDisplay):
    ```
 
 3. **Build and Run:**
-   - Select the **EzDisplay** scheme in the top toolbar to build EZDisplay.
+   - Select the **EZDisplay** scheme in the top toolbar to build EZDisplay.
    - Choose your Mac as the destination (My Mac).
    - Press `Cmd + R` or click the **Run** button (Play icon).
 
