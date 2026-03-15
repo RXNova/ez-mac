@@ -87,7 +87,7 @@ final class DDCBrightnessDriver {
 
     private func avGetPacket(vcpCode: UInt8) -> [UInt8] {
         let body: [UInt8] = [0x82, 0x01, vcpCode]
-        return body + [body.reduce(UInt8(0x37 << 1)) { $0 ^ $1 }]
+        return body + [body.reduce(UInt8(0x37 << 1) ^ 0x51) { $0 ^ $1 }]
     }
 
     private func avSetPacket(vcpCode: UInt8, value: UInt16) -> [UInt8] {

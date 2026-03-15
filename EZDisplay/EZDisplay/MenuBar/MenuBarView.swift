@@ -99,5 +99,13 @@ struct MenuBarView: View {
         }
         .frame(width: 300)
         .background(.regularMaterial)
+        .task {
+            // Periodically check brightness when the UI is visible.
+            while !Task.isCancelled {
+                // Poll every 1 second
+                try? await Task.sleep(nanoseconds: 1_000_000_000)
+                displayManager.updateBrightness()
+            }
+        }
     }
 }

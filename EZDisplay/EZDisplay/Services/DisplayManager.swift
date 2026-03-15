@@ -41,6 +41,21 @@ final class DisplayManager {
         CGDisplayRemoveReconfigurationCallback(reconfigCallback, Unmanaged.passUnretained(self).toOpaque())
     }
 
+    func updateBrightness() {
+        for display in displays where display.isEnabled && display.supportsBrightness {
+            BrightnessService.shared.getBrightness(for: display) { [weak display] value in
+                guard let value = value, let display = display else { return }
+                Task { @MainActor in
+                    display.brightness = value
+                    if !display.isInternal,
+                       let idx = display.ddcControls.firstIndex(where: { $0.id == 0x10 }) {
+                        display.ddcControls[idx].value = value
+                    }
+                }
+            }
+        }
+    }
+
     private func persistDisconnected() {
         let data = softwareDisconnected.map { id, info -> [String: Any] in
             ["id": Int(id), "name": info.name, "isInternal": info.isInternal]
