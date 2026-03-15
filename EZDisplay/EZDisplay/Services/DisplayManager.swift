@@ -13,6 +13,7 @@ private typealias CoreDisplaySetUserEnabledFn  = @convention(c) (CGDirectDisplay
 final class DisplayManager {
     var displays: [DisplayModel] = []
     var errorMessage: String?
+    var needsAccessibility: Bool = false
 
     private var slsConfigureDisplayEnabled: SLSConfigureDisplayEnabledFn?
     private var coreDisplaySetUserEnabled: CoreDisplaySetUserEnabledFn?
@@ -178,6 +179,11 @@ final class DisplayManager {
     func setBrightness(_ value: Float, for display: DisplayModel) {
         display.brightness = value
         BrightnessService.shared.setBrightness(value, for: display)
+        // Keep the DDC brightness control (VCP 0x10) in sync so the slider reflects changes.
+        if !display.isInternal,
+           let idx = display.ddcControls.firstIndex(where: { $0.id == 0x10 }) {
+            display.ddcControls[idx].value = value
+        }
     }
 
     func setDDCControl(_ value: Float, code: UInt8, for display: DisplayModel) {

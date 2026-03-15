@@ -61,6 +61,36 @@ struct MenuBarView: View {
 
             Divider()
 
+            if displayManager.needsAccessibility {
+                Button {
+                    NSWorkspace.shared.open(URL(string: "x-apple.systempreferences:com.apple.preference.security?Privacy_Accessibility")!)
+                } label: {
+                    HStack(spacing: 8) {
+                        Image(systemName: "lock.shield")
+                            .font(.system(size: 12))
+                            .foregroundStyle(.orange)
+                        VStack(alignment: .leading, spacing: 1) {
+                            Text("Accessibility access required")
+                                .font(.system(size: 11, weight: .medium))
+                                .foregroundStyle(.primary)
+                            Text("Tap to open System Settings")
+                                .font(.system(size: 10))
+                                .foregroundStyle(.secondary)
+                        }
+                        Spacer()
+                        Image(systemName: "arrow.up.right")
+                            .font(.system(size: 10))
+                            .foregroundStyle(.secondary)
+                    }
+                    .padding(.horizontal, 14)
+                    .padding(.vertical, 8)
+                    .contentShape(Rectangle())
+                }
+                .buttonStyle(.plain)
+
+                Divider()
+            }
+
             if displayManager.displays.isEmpty {
                 VStack(spacing: 8) {
                     Image(systemName: "display.trianglebadge.exclamationmark")

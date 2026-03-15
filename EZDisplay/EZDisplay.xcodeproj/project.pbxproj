@@ -19,6 +19,7 @@
 		AA000059000000000000001 /* DisplayManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA000029000000000000001 /* DisplayManager.swift */; };
 		AA00005A000000000000001 /* ResolutionService.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA00002A000000000000001 /* ResolutionService.swift */; };
 		AA00005B000000000000001 /* BrightnessService.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA00002B000000000000001 /* BrightnessService.swift */; };
+		AA00005F100000000000001 /* BrightnessKeyMonitor.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA00002F100000000000001 /* BrightnessKeyMonitor.swift */; };
 		AA00005C000000000000001 /* InternalBrightnessDriver.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA00002C000000000000001 /* InternalBrightnessDriver.swift */; };
 		AA00005D000000000000001 /* DDCBrightnessDriver.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA00002D000000000000001 /* DDCBrightnessDriver.swift */; };
 		AA00005E200000000000001 /* DDCControl.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA00002D200000000000001 /* DDCControl.swift */; };
@@ -39,6 +40,7 @@
 		AA000029000000000000001 /* DisplayManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DisplayManager.swift; sourceTree = "<group>"; };
 		AA00002A000000000000001 /* ResolutionService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ResolutionService.swift; sourceTree = "<group>"; };
 		AA00002B000000000000001 /* BrightnessService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BrightnessService.swift; sourceTree = "<group>"; };
+		AA00002F100000000000001 /* BrightnessKeyMonitor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BrightnessKeyMonitor.swift; sourceTree = "<group>"; };
 		AA00002C000000000000001 /* InternalBrightnessDriver.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InternalBrightnessDriver.swift; sourceTree = "<group>"; };
 		AA00002D000000000000001 /* DDCBrightnessDriver.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DDCBrightnessDriver.swift; sourceTree = "<group>"; };
 		AA00002D200000000000001 /* DDCControl.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DDCControl.swift; sourceTree = "<group>"; };
@@ -129,6 +131,7 @@
 				AA000029000000000000001 /* DisplayManager.swift */,
 				AA00002A000000000000001 /* ResolutionService.swift */,
 				AA00002B000000000000001 /* BrightnessService.swift */,
+				AA00002F100000000000001 /* BrightnessKeyMonitor.swift */,
 			);
 			path = Services;
 			sourceTree = "<group>";
@@ -239,6 +242,7 @@
 				AA000059000000000000001 /* DisplayManager.swift in Sources */,
 				AA00005A000000000000001 /* ResolutionService.swift in Sources */,
 				AA00005B000000000000001 /* BrightnessService.swift in Sources */,
+				AA00005F100000000000001 /* BrightnessKeyMonitor.swift in Sources */,
 				AA00005C000000000000001 /* InternalBrightnessDriver.swift in Sources */,
 				AA00005D000000000000001 /* DDCBrightnessDriver.swift in Sources */,
 			        AA00005E200000000000001 /* DDCControl.swift in Sources */,
