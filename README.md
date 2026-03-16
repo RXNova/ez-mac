@@ -9,13 +9,13 @@ EZMac is a suite of utility applications for macOS, designed to enhance your sys
 ### EZDisplay
 
 <div align="center">
-  <img src="EZDisplay/EZDisplay/Assets.xcassets/AppIcon.appiconset/icon_128x128.png" width="256" alt="EZDisplay" style="border-radius: 22%;" />
+  <img src="EZDisplay/EZDisplay/Assets/icon.jpeg" width="256" alt="EZDisplay"/>
 </div>
 
 EZDisplay is the first tool in the suite, focused on simplifying external display management. It is a part of the EZMac family.
 
 <div align="center">
-  <img src="EZDisplay/EZDisplay/Assets/app-view.png" width="340" alt="EZDisplay App View" style="border-radius: 12px;" />
+  <img src="EZDisplay/EZDisplay/Assets/app-view.png" width="340" alt="EZDisplay App View"/>
 </div>
 
 #### Features
