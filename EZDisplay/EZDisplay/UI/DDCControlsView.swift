@@ -17,7 +17,7 @@ struct DDCControlsView: View {
     }
 
     var body: some View {
-        VStack(alignment: .leading, spacing: 10) {
+        VStack(alignment: .leading, spacing: 16) {
             ForEach(primaryControls) { control in
                 controlRow(control)
             }
@@ -39,7 +39,7 @@ struct DDCControlsView: View {
                 .buttonStyle(.plain)
 
                 if expanded {
-                    VStack(alignment: .leading, spacing: 10) {
+                    VStack(alignment: .leading, spacing: 16) {
                         ForEach(secondaryControls) { control in
                             controlRow(control)
                         }
@@ -74,7 +74,7 @@ struct DDCControlsView: View {
                     DispatchQueue.main.asyncAfter(deadline: .now() + 0.08, execute: task)
                 }
             ), in: 0.0...1.0)
-            .controlSize(.mini)
+            .controlSize(.regular)
 
             Text("\(Int(control.value * 100))%")
                 .font(.system(size: 11, design: .monospaced))

@@ -52,7 +52,7 @@ struct DisplayRowView: View {
             if display.isEnabled {
                 Divider()
 
-                VStack(alignment: .leading, spacing: 10) {
+                VStack(alignment: .leading, spacing: 16) {
                     ResolutionPickerView(display: display, showNonHiDPI: $showNonHiDPI)
 
                     if display.isInternal && display.supportsBrightness {

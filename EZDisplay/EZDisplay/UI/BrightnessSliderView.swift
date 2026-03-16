@@ -25,7 +25,7 @@ struct BrightnessSliderView: View {
                         display.brightness = Float(newValue)
                     }
                 ), in: 0.0...1.0)
-                .controlSize(.mini)
+                .controlSize(.regular)
 
                 Image(systemName: "sun.max")
                     .foregroundStyle(.secondary)

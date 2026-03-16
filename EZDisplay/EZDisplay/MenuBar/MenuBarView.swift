@@ -135,9 +135,10 @@ struct MenuBarView: View {
                         }
                     }
                     .padding(10)
-                    .frame(width: 340)   // anchor width so height is deterministic
+                    .frame(width: 340)
                 }
-                .frame(width: 340, height: 460)
+                .frame(width: 340)
+                .frame(maxHeight: 560)
             }
         }
         .frame(width: 340)
