@@ -44,49 +44,46 @@ struct ResolutionPickerView: View {
     }
 
     var body: some View {
-        VStack(alignment: .leading, spacing: 6) {
-            // Pickers
-            HStack(alignment: .top, spacing: 6) {
-                VStack(alignment: .leading, spacing: 3) {
-                    Text("Resolution")
-                        .font(.system(size: 10))
-                        .foregroundStyle(.secondary)
-                    Picker("", selection: Binding(
-                        get: { currentGroupID },
-                        set: { key in
-                            guard let group = groups.first(where: { $0.id == key }) else { return }
-                            displayManager.applyMode(group.highestRate, to: display)
-                        }
-                    )) {
-                        ForEach(groups) { group in
-                            Text(group.label).tag(group.id)
-                        }
+        HStack(spacing: 8) {
+            VStack(alignment: .leading, spacing: 3) {
+                Text("Resolution")
+                    .font(.system(size: 11, weight: .medium))
+                    .foregroundStyle(.secondary)
+                Picker("", selection: Binding(
+                    get: { currentGroupID },
+                    set: { key in
+                        guard let group = groups.first(where: { $0.id == key }) else { return }
+                        displayManager.applyMode(group.highestRate, to: display)
                     }
-                    .pickerStyle(.menu)
-                    .frame(maxWidth: .infinity)
+                )) {
+                    ForEach(groups) { group in
+                        Text(group.label).tag(group.id)
+                    }
                 }
+                .pickerStyle(.menu)
+                .frame(maxWidth: .infinity)
+            }
 
-                VStack(alignment: .leading, spacing: 3) {
-                    Text("Refresh Rate")
-                        .font(.system(size: 10))
-                        .foregroundStyle(.secondary)
-                    Picker("", selection: Binding(
-                        get: { display.currentMode?.id ?? "" },
-                        set: { id in
-                            guard let mode = display.availableModes.first(where: { $0.id == id }) else { return }
-                            displayManager.applyMode(mode, to: display)
-                        }
-                    )) {
-                        ForEach(currentRefreshRates) { mode in
-                            let hz = mode.refreshRate.truncatingRemainder(dividingBy: 1) == 0
-                                ? "\(Int(mode.refreshRate)) Hz"
-                                : String(format: "%.2f Hz", mode.refreshRate)
-                            Text(hz).tag(mode.id)
-                        }
+            VStack(alignment: .leading, spacing: 3) {
+                Text("Refresh Rate")
+                    .font(.system(size: 11, weight: .medium))
+                    .foregroundStyle(.secondary)
+                Picker("", selection: Binding(
+                    get: { display.currentMode?.id ?? "" },
+                    set: { id in
+                        guard let mode = display.availableModes.first(where: { $0.id == id }) else { return }
+                        displayManager.applyMode(mode, to: display)
                     }
-                    .pickerStyle(.menu)
-                    .frame(width: 80)
+                )) {
+                    ForEach(currentRefreshRates) { mode in
+                        let hz = mode.refreshRate.truncatingRemainder(dividingBy: 1) == 0
+                            ? "\(Int(mode.refreshRate)) Hz"
+                            : String(format: "%.2f Hz", mode.refreshRate)
+                        Text(hz).tag(mode.id)
+                    }
                 }
+                .pickerStyle(.menu)
+                .fixedSize()
             }
         }
     }

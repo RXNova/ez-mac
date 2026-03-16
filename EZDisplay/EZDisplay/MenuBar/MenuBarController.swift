@@ -17,7 +17,9 @@ final class MenuBarController {
             object: nil,
             queue: .main
         ) { [weak self] _ in
-            self?.repositionPopoverIfNeeded()
+            Task { @MainActor [weak self] in
+                self?.repositionPopoverIfNeeded()
+            }
         }
     }
 

@@ -76,9 +76,8 @@ final class BrightnessOSDController {
         hideTask = Task { [weak self] in
             try? await Task.sleep(for: .seconds(1.5))
             guard !Task.isCancelled else { return }
-            NSAnimationContext.runAnimationGroup({ $0.duration = 0.35; self?.window?.animator().alphaValue = 0 }) {
-                self?.window?.orderOut(nil)
-            }
+            await NSAnimationContext.runAnimationGroup { $0.duration = 0.35; self?.window?.animator().alphaValue = 0 }
+            self?.window?.orderOut(nil)
         }
     }
 }

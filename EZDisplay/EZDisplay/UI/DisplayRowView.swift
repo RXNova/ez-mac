@@ -6,7 +6,7 @@ struct DisplayRowView: View {
     @Environment(DisplayManager.self) private var displayManager
 
     var body: some View {
-        VStack(alignment: .leading, spacing: 8) {
+        VStack(alignment: .leading, spacing: 0) {
             HStack(spacing: 6) {
                 Image(systemName: display.isInternal ? "laptopcomputer" : "display")
                     .font(.system(size: 14))
@@ -27,11 +27,7 @@ struct DisplayRowView: View {
                                 .clipShape(Capsule())
                         }
                     }
-                    if display.isEnabled, let mode = display.currentMode {
-                        Text("\(mode.logicalWidth) × \(mode.logicalHeight)\(mode.isRetina ? " (HiDPI)" : "")")
-                            .font(.system(size: 10))
-                            .foregroundStyle(.secondary)
-                    } else if !display.isEnabled {
+                    if !display.isEnabled {
                         Text("Disconnected")
                             .font(.system(size: 10))
                             .foregroundStyle(.secondary)
@@ -46,23 +42,33 @@ struct DisplayRowView: View {
                 )) { EmptyView() }
                 .toggleStyle(.switch)
                 .controlSize(.small)
-                .help(display.isEnabled ? "Disconnect display" : "Reconnect display")
+                .disabled(display.isEnabled && displayManager.displays.filter(\.isEnabled).count <= 1)
+                .help(display.isEnabled && displayManager.displays.filter(\.isEnabled).count <= 1
+                    ? "Cannot disconnect the only active display"
+                    : display.isEnabled ? "Disconnect display" : "Reconnect display")
             }
+            .padding(12)
 
             if display.isEnabled {
-                ResolutionPickerView(display: display, showNonHiDPI: $showNonHiDPI)
+                Divider()
 
-                if display.isInternal && display.supportsBrightness {
-                    BrightnessSliderView(display: display)
-                        .padding(.top, 10)
-                } else if !display.isInternal && !display.ddcControls.isEmpty {
-                    DDCControlsView(display: display)
-                        .padding(.top, 10)
+                VStack(alignment: .leading, spacing: 10) {
+                    ResolutionPickerView(display: display, showNonHiDPI: $showNonHiDPI)
+
+                    if display.isInternal && display.supportsBrightness {
+                        BrightnessSliderView(display: display)
+                    } else if !display.isInternal && !display.ddcControls.isEmpty {
+                        DDCControlsView(display: display)
+                    }
                 }
+                .padding(12)
             }
         }
-        .padding(10)
-        .background(Color(nsColor: .windowBackgroundColor).opacity(display.isEnabled ? 0.5 : 0.3))
-        .clipShape(RoundedRectangle(cornerRadius: 10))
+        .background(Color(nsColor: .windowBackgroundColor).opacity(display.isEnabled ? 0.6 : 0.3))
+        .clipShape(RoundedRectangle(cornerRadius: 12))
+        .overlay(
+            RoundedRectangle(cornerRadius: 12)
+                .stroke(Color.primary.opacity(0.07), lineWidth: 1)
+        )
     }
 }
